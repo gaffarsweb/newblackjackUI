@@ -1,0 +1,1892 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Rubik', sans-serif;
+  overflow-x: hidden;
+  background-color: black;
+}
+
+.blackjack-container {
+  background: #1a1f2e;
+  height: 100vh;
+  display: flex;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.deck-indicator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.half-card {
+  width: 45px;
+  height: 65px;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-radius: 4px 0 0 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.half-card .card-back-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+}
+
+.half-card .stake-logo {
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: bold;
+  transform: rotate(-15deg);
+}
+
+.game-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.left-panel {
+  background: #232937;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.bet-section {
+  background: #2a3441;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.bet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.bet-label {
+  color: #8b949e;
+  font-size: 14px;
+}
+
+.bet-value {
+  color: #f0f6fc;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.bet-big-btn {
+  background-color: #238636;
+}
+
+
+.bet-input-container {
+  position: relative;
+}
+
+.bet-input {
+  width: 100%;
+  background: #1c2128;
+  border: 1px solid #373e47;
+  border-radius: 6px;
+  color: #f0f6fc;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-family: 'SF Mono', Monaco, monospace;
+  outline: none;
+}
+
+.bet-controls {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 4px;
+}
+
+.bet-control-btn {
+  background: #373e47;
+  border: none;
+  border-radius: 4px;
+  color: #f0f6fc;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.bet-control-btn:hover {
+  background: #484f58;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 300px;
+  /* Optional: control width */
+  margin: 0 auto;
+}
+
+.action-btn {
+  flex: 1 1 45%;
+  min-width: 120px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  background: #2a3441;
+  cursor: pointer;
+}
+
+.action-btn:hover:not(:disabled) {
+  background: #373e47;
+  border-color: #444c56;
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+.bet-button {
+  background: #238636;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: auto;
+}
+
+.bet-button:hover:not(:disabled) {
+  background: #2ea043;
+}
+
+.bet-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.game-table {
+  flex: 1;
+  background: #1a1f2e;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.table-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.payout-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.payout-text {
+  color: #6e7681;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.dealer-area {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-area {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-badge {
+  background: #2a3441;
+  border: 1px solid #373e47;
+  border-radius: 100px;
+  color: #f0f6fc;
+  padding: 0px 4px;
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 40px;
+  text-align: center;
+  margin-left: 80px;
+}
+
+.cards-container {
+  display: flex;
+  gap: -30px;
+  align-items: center;
+}
+
+.card {
+  width: 90px;
+  height: 130px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-right: -30px;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.card.dealer-card {
+  transform: translate(calc(100vw - 400px), -200px) rotate(15deg) scale(0.8);
+}
+
+.card.player-card {
+  transform: translate(calc(100vw - 400px), -400px) rotate(15deg) scale(0.8);
+}
+
+.card.visible {
+  transform: translateY(0) rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+.card:hover {
+  transform: translateY(-10px) rotate(0deg) scale(1);
+  z-index: 1000;
+}
+
+.card-back {
+  width: 100px;
+  height: 143px;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-back-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  position: relative;
+}
+
+.stake-logo {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  transform: rotate(-15deg);
+}
+
+.card-content {
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  position: relative;
+}
+
+.card-content.red {
+  color: #dc2626;
+}
+
+.card-content.black {
+  color: #1f2937;
+}
+
+.card-top {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.card-bottom {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  transform: rotate(180deg);
+}
+
+.card-value {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.card-suit {
+  font-size: 12px;
+}
+
+.card-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-suit-large {
+  font-size: 32px;
+  opacity: 0.1;
+}
+
+.btn-container-padding {
+  padding: 20px;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.dealerCardScore {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.btnPadding {
+  padding: 12px;
+}
+
+.btnContainerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  /* margin-bottom: 20px; */
+}
+
+.btnContainerPadding {
+  display: grid;
+  grid-template-rows: 1fr 0fr;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.bet-container {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  border: 1px solid #232927;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.bet-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: black;
+  padding-left: 8px;
+  flex: 1;
+}
+
+.bet-dollar {
+  color: #aeb6b4;
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+.bet-input-wrapper input {
+  background: black;
+  color: #aeb6b4;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 10px 5px;
+  width: 100%;
+}
+
+.bit-icon {
+  height: 20px;
+  width: 20px;
+  margin-left: 6px;
+}
+
+.bet-buttons {
+  display: flex;
+  height: 120px;
+  border-radius: 5px;
+}
+
+.bet-buttons button {}
+
+.bet-buttons button:hover {
+  background: #505454;
+}
+
+.bet-buttons button:first-child {
+  border-left: 1px solid #232927;
+}
+
+.bet-buttons button img {
+  height: 10px;
+  width: auto;
+  border-radius: 5px;
+}
+
+.chips-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  /* padding: 10px 20px; */
+  background-color: #111;
+  /* optional background */
+  border-radius: 8px;
+}
+
+.chip {
+  width: 64px;
+  /* adjust size */
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.chip img:hover {
+  transform: scale(1.1);
+}
+
+.chip.extra-gap {
+  margin-right: 16px;
+  /* bigger gap for index 0 and 1 */
+}
+
+.bj-original-container {
+  background: black;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.bj-original-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.bj-original-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bj-original-text {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.bj-original-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.bj-original-subtitle {
+  font-size: 0.9rem;
+  color: #a1a1aa;
+}
+
+.bj-original-arrow {
+  font-size: 1.5rem;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.bj-original-container:hover .bj-original-arrow {
+  opacity: 1;
+}
+
+.statistics {
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 12px 0;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.statistics-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.statistics-icons {
+  display: flex;
+  gap: 16px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  color: #0bf191;
+}
+
+.fairness-btn {
+  background-color: #0bf191;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.fairness-btn:hover {
+  background-color: #09d981;
+}
+
+@media (min-width: 310px) and (max-width: 380px) {
+  .left-side-container {
+    height: auto;
+    min-height: 45vh !important;
+  }
+
+  .chips-container {
+    display: flex;
+    align-items: center;
+    gap: 10px !important;
+    /* padding: 10px 20px; */
+    background-color: #111;
+    /* optional background */
+    border-radius: 8px;
+  }
+
+  .chip {
+    width: 44px !important;
+    /* adjust size */
+    height: 44px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chip.extra-gap {
+    margin-right: 16px !important;
+    /* bigger gap for index 0 and 1 */
+  }
+
+  .bet-buttons {
+    display: flex;
+    height: 30px;
+    gap: 6px;
+    margin-right: 5px !important;
+    border-radius: 5px !important;
+  }
+
+  .bet-buttons button {
+    background: #3b3f3e;
+    color: white;
+    border: none;
+    /* padding: 14px 14px !important; */
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 7px !important;
+  }
+
+  .btnPadding {
+    padding: 8px;
+  }
+
+  .btnContainerPadding {
+    padding: 10px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .btn-container-padding {
+    padding: 0px;
+    border: solid #232927 1px;
+  }
+
+  .deckDisplay {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .dealerCardScore {
+    margin-top: 15px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 30px !important;
+    width: 40% !important;
+    align-self: center;
+    text-align: center;
+  }
+
+  .table-inner-box {
+    width: 110px !important;
+    height: 20px !important;
+    background-color: #171f1d !important;
+    color: #95a69f !important;
+    font-size: 7px !important;
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .insurancetext {
+    width: 244px;
+    height: 24px;
+    color: #95a69f !important;
+    font-size: 6.8px !important;
+    display: flex;
+    margin-top: 3px;
+    justify-content: center;
+    /* align-items: center; */
+    /* border-top-right-radius: 24px; */
+    /* border-bottom-left-radius: 24px; */
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 0 !important;
+    position: absolute;
+    top: 45% !important;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    max-width: 824px;
+    width: 90%;
+    min-height: 260px !important;
+    aspect-ratio: 16 / 9;
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 45px !important;
+    height: 65px !important;
+  }
+}
+
+@media (min-width: 381px) and (max-width: 438px) {
+  .left-side-container {
+    height: auto;
+    min-height: 37vh !important;
+  }
+
+  .deckDisplay {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 30px !important;
+    width: 30% !important;
+    align-self: center;
+    text-align: center;
+  }
+
+  .table-inner-box {
+    width: 160px !important;
+    height: 20px !important;
+    background-color: #171f1d !important;
+    color: #95a69f !important;
+    font-size: 11px;
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 0 !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    max-width: 824px;
+    width: 90%;
+    min-height: 240px !important;
+    aspect-ratio: 16 / 9;
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 40px !important;
+    height: 60px !important;
+  }
+}
+
+@media (min-width: 439px) and (max-width: 550px) {
+  .left-side-container {
+    min-height: 57vh !important;
+  }
+
+  .deckDisplay {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 50px !important;
+    width: 50% !important;
+    align-self: center;
+    text-align: center;
+  }
+
+  .table-inner-box {
+    width: 180px !important;
+    height: 30px !important;
+    background-color: #171f1d !important;
+    color: #95a69f !important;
+    font-size: 11px;
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    max-width: 824px;
+    width: 90%;
+    min-height: 410px !important;
+    aspect-ratio: 16 / 9;
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 50px !important;
+    height: 70px !important;
+  }
+}
+
+@media (min-width: 550px) and (max-width: 768px) {
+  .left-side-container {
+    min-height: 67vh !important;
+  }
+
+  .deckDisplay {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 60px !important;
+    width: 60% !important;
+    align-self: center;
+    text-align: center;
+  }
+
+  .table-inner-box {
+    width: 210px !important;
+    height: 40px !important;
+    background-color: #171f1d !important;
+    color: #95a69f !important;
+    font-size: 11px;
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    max-width: 824px;
+    width: 90%;
+    min-height: 450px !important;
+    aspect-ratio: 16 / 9;
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 65px !important;
+    height: 90px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .left-side-container {
+    min-height: 67vh;
+    background-color: transparent !important;
+  }
+
+  .responsive-container {
+    background-color: #000000 !important;
+  }
+
+
+  body,
+  html {
+    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .left-side-container {
+    min-height: 60vh;
+  }
+
+  .left-panel {
+    width: 250px;
+  }
+
+  .card {
+    width: 70px;
+    height: 100px;
+    margin-right: -25px;
+  }
+
+  .card-suit-large {
+    font-size: 24px;
+  }
+
+  .bet-input-group {
+    display: flex;
+  }
+
+  .deck-indicator {
+    top: 10px;
+    right: 10px;
+  }
+
+  .half-card {
+    width: 35px;
+    height: 50px;
+  }
+
+  .team-center-mid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* @media (max-width: 450px) {
+  .left-side-container {
+    min-height: 50vh !important;
+  }
+
+  .deckDisplay {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 40px !important;
+    width: 50% !important;
+  }
+
+  .table-inner-box {
+    width: 140px !important;
+    height: 20px !important;
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 0 !important;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    max-width: 824px;
+    width: 90%;
+    min-height: 200px !important;
+    aspect-ratio: 16 / 9;
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 40px !important;
+    height: 60px !important;
+  }
+} */
+
+@media (min-width: 381px) and (max-width: 438px) {
+  .left-side-container {
+    height: auto;
+    /* let it adapt to content */
+    min-height: 37vh !important;
+    /* minimum height */
+  }
+
+  .deckDisplay {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 30px !important;
+    width: 30% !important;
+    align-self: center;
+    text-align: center;
+  }
+
+  .table-inner-box {
+    width: 160px !important;
+    height: 20px !important;
+    background-color: #171f1d !important;
+    color: #95a69f !important;
+    font-size: 11px;
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+
+    /* position: absolute; */
+
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 0 !important;
+
+    position: absolute;
+    top: 50%;
+    /* vertical center reference */
+    left: 50%;
+    /* horizontal center reference */
+    transform: translate(-50%, -50%);
+    /* shift back to actual center */
+
+    height: auto;
+    /* let it scale naturally */
+    max-width: 824px;
+    width: 90%;
+    min-height: 240px !important;
+
+    aspect-ratio: 16 / 9;
+    /* keeps shape proportional on all resolutions */
+
+    /* Background image */
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    /* prevents image cropping */
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 40px !important;
+    height: 60px !important;
+  }
+}
+
+@media (min-width: 439px) and (max-width: 550px) {
+  .left-side-container {
+    height: auto;
+    /* let it adapt to content */
+    min-height: 57vh !important;
+    /* minimum height */
+  }
+
+  .deckDisplay {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 50px !important;
+    width: 50% !important;
+    align-self: center;
+    text-align: center;
+  }
+
+  .table-inner-box {
+    width: 180px !important;
+    height: 30px !important;
+    background-color: #171f1d !important;
+    color: #95a69f !important;
+    font-size: 11px;
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+
+    /* position: absolute; */
+
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 50%;
+    z-index: 0 !important;
+    /* vertical center reference */
+    left: 50%;
+    /* horizontal center reference */
+    transform: translate(-50%, -50%);
+    z-index: 0 !important;
+    /* shift back to actual center */
+
+    height: auto;
+    /* let it scale naturally */
+    max-width: 824px;
+    width: 90%;
+    min-height: 410px !important;
+
+    aspect-ratio: 16 / 9;
+    /* keeps shape proportional on all resolutions */
+
+    /* Background image */
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    /* prevents image cropping */
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 50px !important;
+    height: 70px !important;
+  }
+}
+
+@media (min-width: 550px) and (max-width: 768px) {
+  .left-side-container {
+    height: auto;
+    /* let it adapt to content */
+    min-height: 67vh !important;
+    /* minimum height */
+  }
+
+  .deckDisplay {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 60px !important;
+    width: 60% !important;
+    align-self: center;
+    text-align: center;
+  }
+
+  .table-inner-box {
+    width: 210px !important;
+    height: 40px !important;
+    background-color: #171f1d !important;
+    color: #95a69f !important;
+    font-size: 11px;
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+
+    /* position: absolute; */
+
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 50%;
+    /* vertical center reference */
+    left: 50%;
+    /* horizontal center reference */
+    transform: translate(-50%, -50%);
+    /* shift back to actual center */
+
+    height: auto;
+    /* let it scale naturally */
+    max-width: 824px;
+    width: 90%;
+    min-height: 450px !important;
+
+    aspect-ratio: 16 / 9;
+    /* keeps shape proportional on all resolutions */
+
+    /* Background image */
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    /* prevents image cropping */
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 65px !important;
+    height: 90px !important;
+  }
+}
+
+@media (min-width: 550px) and (max-width: 660px) {
+  .left-side-container {
+    height: auto;
+    /* let it adapt to content */
+    min-height: 57vh !important;
+    /* minimum height */
+  }
+
+  .deckDisplay {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 60px !important;
+    width: 60% !important;
+    align-self: center;
+    text-align: center;
+  }
+
+  .table-inner-box {
+    width: 210px !important;
+    height: 40px !important;
+    background-color: #171f1d !important;
+    color: #95a69f !important;
+    font-size: 11px;
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+
+    /* position: absolute; */
+
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 50%;
+    /* vertical center reference */
+    left: 50%;
+    /* horizontal center reference */
+    transform: translate(-50%, -50%);
+    /* shift back to actual center */
+
+    height: auto;
+    /* let it scale naturally */
+    max-width: 824px;
+    width: 90%;
+    min-height: 450px !important;
+
+    aspect-ratio: 16 / 9;
+    /* keeps shape proportional on all resolutions */
+
+    /* Background image */
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    /* prevents image cropping */
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 65px !important;
+    height: 90px !important;
+  }
+}
+
+@media (min-width: 661px) and (max-width: 768px) {
+  .left-side-container {
+    height: auto;
+    /* let it adapt to content */
+    min-height: 57vh !important;
+    /* minimum height */
+  }
+
+  .deckDisplay {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .table-inner-blackjack {
+    height: 60px !important;
+    width: 60% !important;
+    align-self: center;
+    text-align: center;
+  }
+
+  .table-inner-box {
+    width: 210px !important;
+    height: 40px !important;
+    background-color: #171f1d !important;
+    color: #95a69f !important;
+    font-size: 11px;
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+
+    /* position: absolute; */
+
+  }
+
+  .blackjack-info-table {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 50%;
+    /* vertical center reference */
+    left: 50%;
+    /* horizontal center reference */
+    transform: translate(-50%, -50%);
+    /* shift back to actual center */
+
+    height: auto;
+    /* let it scale naturally */
+    max-width: 824px;
+    width: 90%;
+    min-height: 450px !important;
+
+    aspect-ratio: 16 / 9;
+    /* keeps shape proportional on all resolutions */
+
+    /* Background image */
+    background-image: url('../assets/img/bgTable.png');
+    background-size: contain;
+    /* prevents image cropping */
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+  }
+
+  .cardImg {
+    width: 65px !important;
+    height: 90px !important;
+  }
+}
+
+.deckDisplay {
+  width: 86px;
+  height: 119px;
+}
+
+@media (max-width: 768px) {
+
+  body,
+  html {
+    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+  }
+
+  .left-side-container {
+    height: auto;
+    /* let it adapt to content */
+    min-height: 60vh;
+    /* full height for small screens */
+
+  }
+
+  .left-panel {
+    width: 250px;
+  }
+
+  .card {
+    width: 70px;
+    height: 100px;
+    margin-right: -25px;
+  }
+
+  .card-suit-large {
+    font-size: 24px;
+  }
+
+  .bet-input-group {
+    display: flex;
+  }
+
+  .deck-indicator {
+    top: 10px;
+    right: 10px;
+  }
+
+  .half-card {
+    width: 35px;
+    height: 50px;
+  }
+
+  .team-center-mid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.card {
+  perspective: 1000px;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  opacity: 0;
+  transform: translate(calc(100vw - 200px), -200px) rotate(15deg) scale(0.8);
+  position: relative;
+}
+
+.card.visible {
+  transform: translateY(0) rotate(0) scale(1);
+  opacity: 1;
+}
+
+.card.animate-in {
+  /* Starting position for animation */
+  transform: translate(calc(100vw - 200px), -200px) rotate(15deg) scale(0.8);
+  opacity: 1;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+}
+
+.card-front {
+  background: white;
+}
+
+.card-back {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.insurance-card {
+  width: 90px;
+  height: 130px;
+  background: #ff9800;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: swipeOut 0.5s forwards;
+}
+
+@keyframes swipeOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) rotate(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(150px) rotate(15deg);
+  }
+}
+
+
+.card {
+  perspective: 1000px;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  opacity: 0;
+  transform: translate(calc(100vw - 200px), -200px) rotate(15deg) scale(0.8);
+  position: relative;
+}
+
+.card.visible {
+  transform: translateY(0) rotate(0) scale(1);
+  opacity: 1;
+}
+
+.card.animate-in {
+  transform: translate(calc(100vw - 200px), -200px) rotate(15deg) scale(0.8);
+  opacity: 1;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+}
+
+.card-front {
+  background: white;
+}
+
+.card-back {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-container {
+  width: 60px;
+  height: 84px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  position: relative;
+  background: white;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.card-front {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  color: black;
+}
+
+.corner {
+  position: absolute;
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.top-left {
+  top: 5px;
+  left: 5px;
+}
+
+.bottom-right {
+  bottom: 5px;
+  right: 5px;
+  transform: rotate(180deg);
+}
+
+.suit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+}
+
+.card-back {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid #1e3a8a;
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+.responsive-container {
+  margin: 0 auto;
+  display: flex;
+  gap: 0px;
+  width: 100%;
+  border-radius: 0px 0px 10px 10px;
+}
+
+@media (max-width: 768px) {
+  .responsive-container {
+    flex-direction: column-reverse;
+  }
+}
+
+/* @media (max-width: 899px) {
+  .app {
+    display: inline-block;
+  }
+} */
+
+.rotating-table-box {
+  background-color: #131416;
+  width: 100%;
+  position: relative;
+  height: auto;
+  border-radius: 170px;
+  padding-top: 100px;
+  justify-content: center;
+  padding-bottom: 100px;
+  /* padding-left: 200px;
+  padding-right: 200px; */
+  border: 1px solid #131416;
+  display: block;
+  transition: transform 0.3s ease;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+/* Responsive changes for small screens (vertical layout) */
+@media (max-width: 768px) {
+  .rotating-table-box {
+    width: 300px;
+    padding: 300px 100px;
+    /* now more space top/bottom */
+    border-radius: 200px;
+    margin-top: 150px;
+  }
+}
+
+.bottom-centered-card {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 50px;
+}
+
+
+@media (max-width: 768px) {
+  .bottom-centered-card {
+    margin-bottom: -40px;
+  }
+}
+
+
+.above-top-center-card {
+  position: absolute;
+  top: -70px;
+  /* 70px above the top edge of the parent */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .above-top-center-card {
+    margin-top: 70px;
+  }
+}
+
+.image-class {
+  max-width: auto;
+}
+
+
+
+
+
+.blackjack-info-table {
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 0 !important;
+  position: absolute;
+  top: 50%;
+  /* vertical center reference */
+  left: 50%;
+  /* horizontal center reference */
+  transform: translate(-50%, -50%);
+  /* shift back to actual center */
+
+  height: auto;
+  /* let it scale naturally */
+  max-width: 824px;
+  width: 90%;
+  aspect-ratio: 16 / 9;
+  /* keeps shape proportional on all resolutions */
+
+  /* Background image */
+  background-image: url('../assets/img/bgTable.png');
+  background-size: contain;
+  /* prevents image cropping */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cardImg {
+  width: 75px;
+  height: 110px
+}
+
+.table-inner-box2 {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.table-inner-blackjack {
+  height: 50px;
+  width: 50%;
+  align-self: center;
+  text-align: center;
+
+
+
+}
+
+@media (max-width: 768px) {
+  .blackjack-info-table {
+
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 40%;
+    z-index: 0 !important;
+    /* Vertical center reference */
+    left: 50%;
+    /* Horizontal center reference */
+    transform: translate(-50%, -40%);
+    /* Center element properly */
+
+    /* Adjust size for mobile */
+    width: 90%;
+    /* 90% width to avoid overflow */
+    max-width: 824px;
+    /* Ensure it doesn't grow too wide on large screens */
+    min-height: 380px;
+    /* Ensure the element has a minimum height */
+    height: auto;
+    /* Let the element scale naturally based on content */
+
+    /* Background image settings */
+    background-image: url('../assets/img/backBgMobile.png');
+    background-size: contain;
+    /* Ensure background image fits within the element */
+    background-position: center center;
+    /* Center the background image */
+    background-repeat: no-repeat;
+    /* Prevent background repetition */
+  }
+}
+
+
+
+.table-inner-box {
+  width: 160px;
+  height: 30px;
+  background-color: #171f1d !important;
+  color: #95a69f !important;
+  font-size: 11px;
+  display: flex;
+  padding: 1px;
+  justify-content: center;
+  align-items: center;
+
+  /* position: absolute; */
+
+}
+
+.tableTextParent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.insurancetext {
+  width: 244px;
+  height: 24px;
+  color: #95a69f !important;
+  font-size: 11px;
+  display: flex;
+  margin-top: 3px;
+  justify-content: center;
+  /* align-items: center; */
+  /* border-top-right-radius: 24px; */
+  /* border-bottom-left-radius: 24px; */
+}
+
+
+.left-side-container {
+  flex: 1;
+  background-color: #000000;
+  /* border-radius: 12px; */
+  padding: 0px 5%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  height: 80vh;
+  padding-bottom: 20px;
+}
